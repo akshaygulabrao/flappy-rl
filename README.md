@@ -1,4 +1,4 @@
 # Flappy Bird Reinforcement Learning
 A continuation of a project that I started a few years ago. Let's see if I can find the src. It turns out I had a deleting phase of my life where I deleted all of my projects. Time to start over. The idea behind this project is to create a bot that can play flappy bird. The bot interacts with the world similarly to how a human would play a video game. There are timesteps that happen at very quick intervals. At each interval, the bot gets too choose which move to make given the state of the world. It's actions impact the state of the world. 
 
-![Image](/flowchart.cairo.png)
+![Image](images/flowchart.cairo.png)
