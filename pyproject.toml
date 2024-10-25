@@ -1,0 +1,11 @@
+[project]
+name = "flappy-bird"
+version = "0.1.0"
+description = "Flappy Bird Reinforcement Learning"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flappy-bird-gymnasium>=0.4.0",
+    "graphviz>=0.20.3",
+    "gymnasium>=1.0.0",
+]
