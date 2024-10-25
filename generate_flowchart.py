@@ -1,21 +1,27 @@
 from graphviz import Digraph
 
+# Create a new directed graph
 dot = Digraph(comment='Flow Chart')
-dot.attr(rankdir='TB')  # Top to Bottom direction
+
+# Set DPI and size
+dot.attr(dpi='300')
+# Optional: Set size in inches (width,height)
+dot.attr(size='8.5,11')  # Letter size paper
 
 # Add nodes
-dot.node('A', 'Start')
-dot.node('B', 'Process 1')
-dot.node('C', 'Decision')
-dot.node('D', 'Process 2')
-dot.node('E', 'End')
+dot.node('state', 'State')
+dot.node('reward/next state', 'Reward/ Next State')
+dot.node('next state', 'Next State')
+dot.node('done', 'Done')
 
 # Add edges
-dot.edge('A', 'B')
-dot.edge('B', 'C')
-dot.edge('C', 'D', 'Yes')
-dot.edge('C', 'E', 'No')
-dot.edge('D', 'E')
+dot.edge('agent action', 'reward/next state')
+dot.edge('state','reward/next state')
+dot.edge('state','agent action')
+dot.edge('reward/next state', 'next state')
+dot.edge('next state', 'state','if alive')
+dot.edge('next state', 'done', 'if dead')
 
-# Save the diagram
-dot.render('flowchart', format='png', cleanup=True)
+# Render with specific DPI
+dot.render('flowchart', format='png', cleanup=True, 
+          renderer='cairo')  # Remove formatter parameter
