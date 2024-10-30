@@ -20,7 +20,7 @@
     \draw [arrow] (state) -- (agent);
     \draw [arrow] (agent) -- (action);
     \draw [arrow] (action) -- (world);
-    \draw [arrow] (world) to [bend right=75] node[left] {updates} (state);
+    \draw [arrow] (world) to [bend right=75] node[right] {updates} (state);
     \draw [arrow] (world) to [bend left=75] node[left] {rewards} (agent);
 \end{tikzpicture}
 \end{document}
