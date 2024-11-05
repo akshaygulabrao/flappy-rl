@@ -16,9 +16,11 @@ from flappy_bird_gymnasium.envs.constants import (
     PLAYER_VEL_ROT,
     PLAYER_WIDTH,
 )
+import numpy as np
 class Agent:
     def __init__(self):
-        pass
+        self.epsilon = 0.1
+        self.qtable = np.zeros((2,2),dtype=np.float32)
     
     def discretize_state(self, state):
         last_pipe_x = state[0]
@@ -33,8 +35,6 @@ class Agent:
         player_y = state[9]
         player_vel = state[10]
         player_angle = state[11]
-        print(f"last_pipe_x: {last_pipe_x}, next_pipe_x: {next_pipe_x},\
-               player_y: {player_y}, last_pipe_y_bottom: {last_pipe_y_bottom}")
 
         if last_pipe_x > 0.05:
             if(player_y > last_pipe_y_bottom - (PLAYER_HEIGHT  / BACKGROUND_WIDTH)):
@@ -47,12 +47,14 @@ class Agent:
             else:
                 return 0
     
-    
     def act(self, state):
-        if state == 1:
-            return 1
+        if np.random.uniform(0, 1) < self.epsilon:
+            return np.random.randint(0, 2)
         else:
-            return 0
-        
+            return np.argmax(self.qtable[state])
+            
     def learn(self, state, action, reward, next_state, terminated):
-        pass
+        if not terminated:
+            self.qtable[state][action] = self.qtable[state][action] + 0.1 * (reward + 0.9 * self.qtable[next_state][np.argmax(self.qtable[next_state])] - self.qtable[state][action])
+        else:
+            self.qtable[state][action] = self.qtable[state][action] + 0.1 * (reward - self.qtable[state][action])
