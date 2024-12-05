@@ -18,3 +18,16 @@ uv.lock
 *.blg
 *.bbl
 *.out
+
+*.pdf
+*.tex
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.xdv
