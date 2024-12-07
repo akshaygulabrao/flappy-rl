@@ -48,13 +48,17 @@ class Agent:
                 return 0
     
     def act(self, state):
-        if np.random.uniform(0, 1) < self.epsilon:
-            return np.random.randint(0, 2)
+        demo_mode = True
+        if not demo_mode:
+            if np.random.uniform(0, 1) < 1e-2:
+                return np.random.randint(0, 2)
+            else:
+                return np.argmax(self.qtable[state])
         else:
-            return np.argmax(self.qtable[state])
+            return state
             
     def learn(self, state, action, reward, next_state, terminated):
         if not terminated:
-            self.qtable[state][action] = self.qtable[state][action] + 0.1 * (reward + 0.9 * self.qtable[next_state][np.argmax(self.qtable[next_state])] - self.qtable[state][action])
+            self.qtable[state][action] = self.qtable[state][action] + 1e-5 * (reward + 0.9 * self.qtable[next_state][np.argmax(self.qtable[next_state])] - self.qtable[state][action])
         else:
-            self.qtable[state][action] = self.qtable[state][action] + 0.1 * (reward - self.qtable[state][action])
+            self.qtable[state][action] = self.qtable[state][action] + 1e-5 * (reward - self.qtable[state][action])
