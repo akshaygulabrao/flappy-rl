@@ -21,6 +21,7 @@ class Agent:
     def __init__(self):
         self.epsilon = 0.1
         self.qtable = np.zeros((2,2),dtype=np.float32)
+        # self.qtable = np.array([[1.1072979 , 0.47538817], [0.5155084  ,1.0800953 ]])
     
     def discretize_state(self, state):
         last_pipe_x = state[0]
@@ -48,14 +49,14 @@ class Agent:
                 return 0
     
     def act(self, state):
-        demo_mode = True
-        if not demo_mode:
-            if np.random.uniform(0, 1) < 1e-2:
-                return np.random.randint(0, 2)
-            else:
-                return np.argmax(self.qtable[state])
+        if np.random.uniform(0, 1) < self.epsilon:
+            return np.random.randint(0, 2) 
         else:
-            return state
+            return np.argmax(self.qtable[state])
+
+    
+    def demo_act(self, state):
+        return state
             
     def learn(self, state, action, reward, next_state, terminated):
         if not terminated:

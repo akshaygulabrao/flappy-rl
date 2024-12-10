@@ -11,5 +11,6 @@ dependencies = [
     "ipykernel>=6.29.5",
     "opencv-python>=4.10.0.84",
     "pandas>=2.2.3",
+    "tinygrad>=0.10.0",
     "tqdm>=4.66.6",
 ]

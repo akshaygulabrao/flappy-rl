@@ -5,17 +5,19 @@ from tqdm import tqdm
 from agent import Agent
 
 env = gymnasium.make("FlappyBird-v0", 
-                    render_mode="human",
+                    # render_mode="human",
                     use_lidar=False,
                     normalize_obs=True)
 agent = Agent()
 
-for i in range(int(1e3)):
+progress_report = 1000
+for i in range(int(1e6)):
     current_obs, _ = env.reset()
-    if (i+1) % 5 == 0:
+    if (i+1) % progress_report == 0:
         print(f"Episode {i+1}")
         print(agent.qtable)
-
+    act = agent.demo_act if (i+1) % progress_report == 0 else agent.act
+    act = agent.demo_act
     while True:
         state = agent.discretize_state(current_obs)
 
